@@ -1,0 +1,104 @@
+{{#yield-scripts}}
+  {{#js}}js/setup{{/js}}
+{{/yield-scripts}}
+
+<form id="setup" action="/{{user}}" method="post" style="display: none">
+  <h1>Settings</h1>
+
+  <input type="hidden" id="username" name="username" value="{{user}}" />
+
+  <div class="form-group">
+    <label for="title">Store Name:</label>
+    <input type="text" id="title" name="title" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="logo">Logo:</label>
+    <input type="text" id="logo" name="logo" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="pubkey">Public Key:</label>
+    <div class="input-group">
+      <input type="text" id="pubkey" name="pubkey" class="form-control" placeholder="xpub..." />
+      <span class="input-group-btn">
+        <button id="generate" type="button" class="btn">New</button>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="currency">Currency:</label>
+    <select id="currency" name="currency" class="form-control">
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="symbol">Exchange Rate:</label>
+    <select id="symbol" name="symbol" class="form-control">
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="commission">Commission (+) / Discount (-) %:</label>
+    <input type="text" id="commission" name="commission" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="unit">Bitcoin Display Units:</label>
+    <select id="unit" name="unit" class="form-control">
+    </select>
+  </div>
+ 
+  <input class="btn btn-primary" type="submit" value="Done" />
+</form>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">New Extended Key</h4>
+      </div>
+
+      <div class="modal-body">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#step1" role="tab" data-toggle="tab">Key</a></li>
+          <li><a href="#step2" role="tab" data-toggle="tab">What's this?</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="step1" class="tab-pane active">
+            <div class="form-group">
+              <label for="encryption-password">Encryption Password:</label>
+              <input type="password" id="encryption-password" name="encryption-password" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label for="encryption-confirm">Confirm Password:</label>
+              <input type="password" id="encryption-confirm" name="encryption-confirm" class="form-control" />
+            </div>
+
+            <div id="key-dialog" class="alert alert-danger">
+              Extended Private Key <span id="status">(Unencrypted)</span>
+              <pre id="privkey"></pre>
+              <div id="qr"></div>
+            </div>
+          </div>
+          <div id="step2" class="tab-pane">
+            <p>This is an extended key, or <a href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki"><abbr title="Hierarchical Deterministic Wallet">HD Wallet</abbr></a>.</p>
+            <p>The <b>public</b> portion of the key is stored and used by CoinOS to generate a separate receiving address for every payment to your account.  This prevents people from seeing transactions to your account other than their own.</p>
+            <p>The <b>private</b> portion of the key currently displayed in the 'Key' tab will not be accessible after you close this window.  You are responsible for saving it and making copies of it.</p>
+            <p>Encrypting the key with a strong password prevents people from using the key if they get ahold of one of your copies.   Keep the password written down and backed up separately from the key itself.  <span class="text-danger"><b>We cannot reset your password</b> -- if you lose it or forget it, your funds will be lost forever.</span></p>
+
+            <img src="/assets/img/forever.gif" width="370px" />
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="print" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span> Print</button>
+        <button type="button" id="close" class="btn btn-primary">Got it!</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <title>CoinOS</title>
+    <link href="/assets/img/favicon.ico" rel="shortcut icon" />
+    {{#css}}css/calculator{{/css}}
+    {{{yield-styles}}}
+    {{{yield-scripts}}}
+  </head>
+  <body>
+    <div class="container-fluid">
+      {{#navigation}}
+      <nav class="navbar" role="navigation">
+        <button type="button" class="btn btn-primary navbar-toggle" data-toggle="collapse" data-target="#nav">
+          <span class="pull-right glyphicon glyphicon-list"></span>
+          <span id="connection" class="pull-right glyphicon glyphicon-exclamation-sign"></span>
+        </button>
+        <div id="nav" class="collapse navbar-collapse">
+          <div class="navbar">
+            <ul class="nav navbar-nav">
+              <li><a href="/{{user}}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+              <li><a href="/{{user}}/report"><span class="glyphicon glyphicon-list-alt"></span> Transactions</a></li>
+              <li><a href="/{{user}}/profile"><span class="glyphicon glyphicon-user"></span> Account Profile</a></li>
+              <li><a href="/{{user}}/edit"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+              <li><a href="/logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+              <!--
+              <li><a href="/help"><span class="glyphicon glyphicon-info-sign"></span> Help</a></li>
+-->
+            </ul>
+          </div>
+        </div>
+      </nav>
+      {{/navigation}}
+
+      {{{yield}}}
+    </div>
+  </body>
+</html>
